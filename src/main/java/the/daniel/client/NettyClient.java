@@ -10,10 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import the.daniel.client.console.ConsoleCommandManager;
 import the.daniel.client.console.LoginConsoleCommand;
-import the.daniel.client.handler.CreateGroupResponseHandler;
-import the.daniel.client.handler.LoginResponseHandler;
-import the.daniel.client.handler.LogoutResponseHandler;
-import the.daniel.client.handler.MessageResponseHandler;
+import the.daniel.client.handler.*;
 import the.daniel.codec.PacketDecoder;
 import the.daniel.codec.PacketEncoder;
 import the.daniel.codec.Spliter;
@@ -50,9 +47,11 @@ public class NettyClient {
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
-                        ch.pipeline().addLast(new LogoutResponseHandler());
                         ch.pipeline().addLast(new MessageResponseHandler());
                         ch.pipeline().addLast(new CreateGroupResponseHandler());
+                        ch.pipeline().addLast(new JoinGroupResponseHandler());
+                        ch.pipeline().addLast(new QuitGroupResponseHandler());
+                        ch.pipeline().addLast(new LogoutResponseHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
                 });

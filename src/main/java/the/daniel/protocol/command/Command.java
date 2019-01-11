@@ -22,4 +22,12 @@ public interface Command {
 
     Byte CREATE_GROUP_RESPONSE = 8;
 
+    Byte JOIN_GROUP_REQUEST = 9;
+
+    Byte JOIN_GROUP_RESPONSE = 10;
+
+    Byte QUIT_GROUP_REQUEST = 11;
+
+    Byte QUIT_GROUP_RESPONSE = 12;
+
 }
