@@ -1,9 +1,13 @@
 package the.daniel.protocol;
 
 import io.netty.buffer.ByteBuf;
+import the.daniel.protocol.request.CreateGroupRequestPacket;
 import the.daniel.protocol.request.LoginRequestPacket;
+import the.daniel.protocol.request.LogoutRequestPacket;
 import the.daniel.protocol.request.MessageRequestPacket;
+import the.daniel.protocol.response.CreateGroupResponsePacket;
 import the.daniel.protocol.response.LoginResponsePacket;
+import the.daniel.protocol.response.LogoutResponsePacket;
 import the.daniel.protocol.response.MessageResponsePacket;
 import the.daniel.serialize.Serializer;
 import the.daniel.serialize.impl.JSONSerializer;
@@ -32,6 +36,10 @@ public class PacketCodeC {
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
         packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetTypeMap.put(LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
+        packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();

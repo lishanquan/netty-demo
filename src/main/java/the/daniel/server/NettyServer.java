@@ -9,9 +9,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import the.daniel.codec.PacketDecoder;
 import the.daniel.codec.PacketEncoder;
 import the.daniel.codec.Spliter;
-import the.daniel.server.handler.AuthHandler;
-import the.daniel.server.handler.LoginRequestHandler;
-import the.daniel.server.handler.MessageRequestHandler;
+import the.daniel.server.handler.*;
 
 import java.util.Date;
 
@@ -41,10 +39,11 @@ public class NettyServer {
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new CreateGroupRequestHandler());
+                        ch.pipeline().addLast(new LogoutRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
-
 
         bind(serverBootstrap, PORT);
     }
