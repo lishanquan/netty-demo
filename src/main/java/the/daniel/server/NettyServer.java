@@ -10,6 +10,7 @@ import the.daniel.codec.PacketCodecHandler;
 import the.daniel.codec.PacketDecoder;
 import the.daniel.codec.PacketEncoder;
 import the.daniel.codec.Spliter;
+import the.daniel.handler.IMIdleStateHandler;
 import the.daniel.server.handler.*;
 
 import java.util.Date;
@@ -35,9 +36,11 @@ public class NettyServer {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
+                        ch.pipeline().addLast(new IMIdleStateHandler());//空闲检测
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
                         ch.pipeline().addLast(IMHandler.INSTANCE);
                     }

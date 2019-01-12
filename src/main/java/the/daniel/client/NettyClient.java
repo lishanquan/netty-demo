@@ -14,6 +14,7 @@ import the.daniel.client.handler.*;
 import the.daniel.codec.PacketDecoder;
 import the.daniel.codec.PacketEncoder;
 import the.daniel.codec.Spliter;
+import the.daniel.handler.IMIdleStateHandler;
 import the.daniel.util.SessionUtil;
 
 import java.util.Date;
@@ -44,6 +45,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
+                        ch.pipeline().addLast(new IMIdleStateHandler());//空闲检测
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
@@ -55,6 +57,8 @@ public class NettyClient {
                         ch.pipeline().addLast(new GroupMessageResponseHandler());
                         ch.pipeline().addLast(new LogoutResponseHandler());
                         ch.pipeline().addLast(new PacketEncoder());
+
+                        ch.pipeline().addLast(new HeartBeatTimerHandler());
                     }
                 });
 
